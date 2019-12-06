@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+    <title>Test1</title>
+</head>
+<html>
+    <body>
+            <select>
+                    <option value="grapefruit">Grapefruit</option>
+                    <option value="lime">Lime</option>
+                    <option selected value="coconut">Coconut</option>
+                    <option value="mango">Mango</option>
+            </select>
+            <div id="app"></div>
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+            <script type="text/babel">
+                let  appContainer=document.getElementById("app");
+                class NameForm extends React.Component{
+                    constructor(props){
+                        super(props)
+                        this.state={
+                            value:'',
+                            myColor:"red"
+                        }
+                        this.handleChange=this.handleChange.bind(this)
+                        this.handleSubmit=this.handleSubmit.bind(this)
+                        this.handleSelectChange=this.handleSelectChange.bind(this)
+                    }
+
+                    handleChange(event){
+                        this.setState({
+                            value:event.target.value.toUpperCase()
+                        })
+                    }
+                    handleSelectChange(value){
+                        this.setState({
+                            myColor:value
+                        })
+                    } 
+                    handleSubmit(event){
+                        event.preventDefault();
+                        alert('a NAME WAS SUBMITTED:'+this.state.value+"myColor:"+this.state.myColor)
+                    }
+                    render(){
+                        const {myColor}=this.state
+                        const list=[
+                                {title:"red",value:'red'},
+                                {title:"yellow",value:'yellow'},
+                                {title:"green",value:'green'},
+                            ]
+                        return(
+                            <form onSubmit={this.handleSubmit}>
+                                <label>Name:
+                                    <input type="text" nvalue={this.state.value} onChange={this.handleChange}/>
+                                </label>
+                                <label>
+                                    <Select onChange={this.handleSelectChange}list={list} defaultValue={myColor}/>
+                                </label>
+                                <input type="submit" value="submit" />
+                            </form>
+                        )
+                    }
+                }
+                class Select extends React.Component{
+                    constructor(props){
+                        super(props)
+                        this.state={
+                            value:props.defaultValue
+                        }
+                        this.handleChange=this.handleChange.bind(this)
+                    }
+                    handleChange(event){
+                        const {onChange}=this.props
+                        alert(event.target.value)
+                        this.setState({
+                            value:event.target.value
+                        })
+                        if(onChange && typeof(onChange)==="function"){
+                            onChange(event.target.value)
+
+                        }
+                    }
+                    render(){
+                        const { list }= this.props;
+                        const { value }=this.state
+                        return(
+                        <select value={value} onChange={this.handleChange}>
+                            {list.map((item,index)=><option key={`select-item-${index}`} value={item.value}>{item.title}</option>)}
+                        </select>
+                        )
+                    }
+                }
+
+                ReactDOM.render(
+                    <NameForm/>
+                    ,
+                    appContainer
+                    )
+            </script>
+    </body>
+</html>
