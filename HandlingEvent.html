@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <title>Test1</title>
+</head>
+<html>
+    <body>
+            <div id="app"></div>
+            <button onclick="doClick()">Click me</button>
+            <a href="http://www.google.com" onclick="console.log('The link was clicked.');return false">The link</a>
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+            <script type="text/babel">
+            function doClick(){
+                alert("click me");
+            }
+                let  appContainer=document.getElementById("app");
+                class Button extends React.Component{
+                    doClick(){
+                        alert("do click")
+                    }
+                    render(){
+                        return(
+                            <button onClick={this.doClick}>
+                                Click Me(React)
+                            </button>
+                        )
+                    }
+                }
+                class MyLink extends React.Component{
+                    doClick(e){
+                        e.preventDefault()
+                        alert("do click")
+                    }
+                    render(){
+                        return(
+                            <a href="http://www.google.com" onClick={this.doClick}>
+                                MyLink(React)
+                            </a>
+                        )
+                    }
+                }
+                ReactDOM.render(
+                <div>
+                <Button />
+                <MyLink/>
+                </div>
+                ,
+                    appContainer
+                    )
+            </script>
+    </body>
+</html>
