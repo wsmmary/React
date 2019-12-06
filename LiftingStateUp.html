@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <title>Test1</title>
+</head>
+<html>
+    <body>
+            <div id="app"></div>
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+            <script type="text/babel">
+                let  appContainer=document.getElementById("app");
+                function createReactApp({el="#app",rootComp}){
+                    ReactDOM.render( rootComp,document.querySelector('#app') )
+                }
+                class ButtonAdd extends React.Component{
+                    handleClick=()=>{
+                        const {count,onChange}=this.props
+                        if(onChange){
+                            onChange(count+1)
+                        }
+                    }
+                    render(){
+                        const {count}=this.props
+                        return(<button onClick={this.handleClick}>ButtonAdd-${count}</button>)
+                    }
+                }
+                class ButtonSub extends React.Component{
+                    handleClick=()=>{
+                        const {count,onChange}=this.props
+                        if(onChange){
+                            onChange(count-1)
+                        }
+                    }
+                    render(){
+                        const {count}=this.props
+                        return(<button onClick={this.handleClick}>ButtonSub-${count}</button>)
+                    }
+                }
+
+                class Calculator extends React.Component{
+                    constructor(props){
+                        super(props)
+                        this.state={
+                            count:50
+                        }
+
+                    }
+
+                    render(){
+                        const {count}=this.state
+                        return(
+                            <div>
+                                <h1>{count}</h1>
+                                <ButtonAdd count={count} onChange={this.handleChange}/>
+                                <ButtonSub count={count} onChange={this.handleChange} />
+                            </div>
+                        )
+                    }
+
+                    handleChange=(value)=>{
+                        this.setState({
+                            count:value,
+                        })
+                    }
+                }
+                createReactApp({
+                    el:"#app",
+                    rootComp:<Calculator/>
+                })
+
+            </script>
+    </body>
+</html>
