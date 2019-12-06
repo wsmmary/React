@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <title>Test1</title>
+</head>
+<html>
+    <body>
+            <div id="app"></div>
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+            <script type="text/babel">
+                let  appContainer=document.getElementById("app");
+                const courses=["Hello World", "Introducing JSX","Rendering Elements","Components and Props",]
+
+                const indexCourseList=courses.map((course,index)=>index+"-"+course)
+                // console.log(indexCourseList)
+
+                const courseListUI=indexCourseList.map((course,index)=><li key={`course-list-${index}`}>{course}</li>)
+                // console.log(courseListUI)
+                ReactDOM.render(
+                    <ul>
+                    {courseListUI} 
+                    </ul>   
+                ,
+                    appContainer
+                    )
+            </script> 
+    </body>
+</html>
