@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <title>Test1</title>
+</head>
+<html>
+    <body>
+            <button onclick="doClick()">Click Me</button>
+            <div id="app"></div>
+            <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+            <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+            <script type="text/babel">
+            function doClick(){
+                alert("Do click");
+            }
+            let  appContainer=document.getElementById("app");
+            function Clock1(props){
+
+                const element=(
+                        <div>
+                            <h1>Hello,world</h1>
+                            <h2>Time: {props.date.toLocaleTimeString()}</h2>
+                        </div>
+                    )
+                return element;
+            }
+
+            class Clock extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state={
+                        date:new Date(),
+                        count01:0,
+                        count02:10,
+                        count03:100,
+                    }
+
+                }
+                tick(){
+                    this.setState((prevState,props)=>({
+                        date:new Date(),
+                        count01:this.state.count01+1,
+                        count02:this.state.count02+1,
+                        count03:this.state.count03+1,
+                    }))
+                }
+                componentWillUnmount(){
+                    clearInterval(this.timerID)
+                }
+                componentDidMount(){
+                    this.timerID= setInterval(()=>{
+                        this.tick(),1000
+                    });
+                }
+                render(){
+                    const {date}=this.state;
+                    return(
+                        <div>
+                            <h1>Hello,world</h1>
+                            <h2>Time: {date.toLocaleTimeString()}</h2>
+                        </div>
+                    )
+                }
+            }
+            
+            ReactDOM.render(<Clock/>,appContainer)
+        
+            </script>
+    </body>
+</html>
